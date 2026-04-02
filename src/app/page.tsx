@@ -52,7 +52,7 @@ export default function Home() {
     <>
       <ProgressBar currentScreen={state.currentScreen} totalScreens={TOTAL_SCREENS} />
 
-      <div style={{ paddingTop: state.currentScreen > 0 ? '52px' : '0' }}>
+      <div style={{ paddingTop: state.currentScreen > 0 ? '60px' : '0' }}>
         {state.currentScreen === 0 && (
           <Screen1Welcome onNext={() => goTo(1)} />
         )}

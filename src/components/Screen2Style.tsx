@@ -16,15 +16,13 @@ const styles: { id: ResumeStyle; name: string; desc: string; preview: React.Reac
     name: 'Modern',
     desc: 'Clean & professional with bold headers',
     preview: (
-      <div style={{ padding: '12px', fontFamily: 'sans-serif' }}>
-        <div style={{ height: '6px', background: '#1a2744', borderRadius: '2px', marginBottom: '8px' }} />
-        <div style={{ height: '10px', background: '#1a2744', borderRadius: '2px', width: '60%', marginBottom: '6px' }} />
-        <div style={{ height: '4px', background: '#c9a84c', borderRadius: '2px', width: '80%', marginBottom: '10px' }} />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-          {[80, 90, 70, 85].map((w, i) => (
-            <div key={i} style={{ height: '3px', background: '#e2ddd5', borderRadius: '2px', width: `${w}%` }} />
-          ))}
-        </div>
+      <div style={{ padding: '6px', fontFamily: 'sans-serif', background: 'white', height: '100%' }}>
+        <div style={{ height: '5px', background: '#1a2744', marginBottom: '4px' }} />
+        <div style={{ height: '8px', background: '#1a2744', width: '55%', marginBottom: '3px' }} />
+        <div style={{ height: '3px', background: '#c9a84c', width: '75%', marginBottom: '6px' }} />
+        {[80, 90, 70, 85].map((w, i) => (
+          <div key={i} style={{ height: '2px', background: '#aaa', width: `${w}%`, marginBottom: '3px' }} />
+        ))}
       </div>
     ),
   },
@@ -33,17 +31,15 @@ const styles: { id: ResumeStyle; name: string; desc: string; preview: React.Reac
     name: 'Classic',
     desc: 'Traditional & timeless for formal roles',
     preview: (
-      <div style={{ padding: '12px', fontFamily: 'Georgia, serif' }}>
-        <div style={{ textAlign: 'center', marginBottom: '8px' }}>
-          <div style={{ height: '8px', background: '#333', borderRadius: '1px', width: '50%', margin: '0 auto 4px' }} />
-          <div style={{ height: '1px', background: '#333', marginBottom: '4px' }} />
-          <div style={{ height: '3px', background: '#999', borderRadius: '1px', width: '70%', margin: '0 auto' }} />
+      <div style={{ padding: '6px', background: 'white', height: '100%' }}>
+        <div style={{ textAlign: 'center', marginBottom: '4px' }}>
+          <div style={{ height: '6px', background: '#333', width: '50%', margin: '0 auto 3px' }} />
+          <div style={{ height: '1px', background: '#333', marginBottom: '3px' }} />
+          <div style={{ height: '2px', background: '#999', width: '70%', margin: '0 auto' }} />
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '8px' }}>
-          {[70, 85, 60, 75].map((w, i) => (
-            <div key={i} style={{ height: '3px', background: '#ddd', borderRadius: '1px', width: `${w}%` }} />
-          ))}
-        </div>
+        {[70, 85, 60, 75].map((w, i) => (
+          <div key={i} style={{ height: '2px', background: '#ccc', width: `${w}%`, marginBottom: '3px' }} />
+        ))}
       </div>
     ),
   },
@@ -52,17 +48,17 @@ const styles: { id: ResumeStyle; name: string; desc: string; preview: React.Reac
     name: 'Creative',
     desc: 'Bold sidebar layout that stands out',
     preview: (
-      <div style={{ padding: '0', display: 'flex', height: '100%', overflow: 'hidden', borderRadius: '6px' }}>
-        <div style={{ width: '35%', background: '#0d9488', padding: '10px 8px' }}>
-          <div style={{ height: '20px', width: '20px', borderRadius: '50%', background: 'rgba(255,255,255,0.4)', margin: '0 auto 8px' }} />
-          {[70, 80, 60, 75, 65].map((w, i) => (
-            <div key={i} style={{ height: '3px', background: 'rgba(255,255,255,0.3)', borderRadius: '1px', width: `${w}%`, marginBottom: '4px' }} />
+      <div style={{ display: 'flex', height: '100%', background: 'white' }}>
+        <div style={{ width: '35%', background: '#0d9488', padding: '6px 4px' }}>
+          <div style={{ height: '14px', width: '14px', borderRadius: '50%', background: 'rgba(255,255,255,0.4)', margin: '0 auto 4px' }} />
+          {[70, 80, 60].map((w, i) => (
+            <div key={i} style={{ height: '2px', background: 'rgba(255,255,255,0.3)', width: `${w}%`, marginBottom: '3px' }} />
           ))}
         </div>
-        <div style={{ flex: 1, padding: '10px 8px' }}>
-          <div style={{ height: '8px', background: '#0d9488', borderRadius: '2px', marginBottom: '8px', width: '70%' }} />
+        <div style={{ flex: 1, padding: '6px 4px' }}>
+          <div style={{ height: '6px', background: '#0d9488', width: '70%', marginBottom: '4px' }} />
           {[90, 70, 80, 60].map((w, i) => (
-            <div key={i} style={{ height: '3px', background: '#e2ddd5', borderRadius: '1px', width: `${w}%`, marginBottom: '4px' }} />
+            <div key={i} style={{ height: '2px', background: '#ccc', width: `${w}%`, marginBottom: '3px' }} />
           ))}
         </div>
       </div>
@@ -73,12 +69,12 @@ const styles: { id: ResumeStyle; name: string; desc: string; preview: React.Reac
     name: 'Minimal',
     desc: 'Ultra-clean whitespace focused design',
     preview: (
-      <div style={{ padding: '14px' }}>
-        <div style={{ height: '7px', background: '#111', borderRadius: '1px', width: '45%', marginBottom: '4px' }} />
-        <div style={{ height: '3px', background: '#bbb', borderRadius: '1px', width: '65%', marginBottom: '12px' }} />
-        <div style={{ height: '1px', background: '#eee', marginBottom: '8px' }} />
+      <div style={{ padding: '8px', background: 'white', height: '100%' }}>
+        <div style={{ height: '5px', background: '#111', width: '45%', marginBottom: '3px' }} />
+        <div style={{ height: '2px', background: '#bbb', width: '65%', marginBottom: '8px' }} />
+        <div style={{ height: '1px', background: '#eee', marginBottom: '5px' }} />
         {[80, 65, 85, 70].map((w, i) => (
-          <div key={i} style={{ height: '3px', background: '#e8e8e8', borderRadius: '1px', width: `${w}%`, marginBottom: '5px' }} />
+          <div key={i} style={{ height: '2px', background: '#e0e0e0', width: `${w}%`, marginBottom: '4px' }} />
         ))}
       </div>
     ),
@@ -87,151 +83,171 @@ const styles: { id: ResumeStyle; name: string; desc: string; preview: React.Reac
 
 export default function Screen2Style({ config, onChange, onNext, onBack }: Screen2Props) {
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--paper)', padding: '40px 24px' }}>
-      <div style={{ maxWidth: '760px', margin: '0 auto' }}>
+    <div style={{
+      minHeight: '100vh',
+      background: 'var(--win-desktop)',
+      display: 'flex',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+      padding: '20px',
+      paddingTop: '80px',
+      fontFamily: 'var(--font-system)',
+    }}>
+      <div className="win-window" style={{ width: '100%', maxWidth: '640px' }}>
 
-        {/* Back */}
-        <button
-          className="btn-outline"
-          onClick={onBack}
-          style={{ marginBottom: '40px', padding: '8px 16px', fontSize: '13px' }}
-        >
-          <ArrowLeft size={14} /> Back
-        </button>
-
-        <div className="animate-fade-up">
-          <div className="section-label" style={{ marginBottom: '8px' }}>Step 1 of 4</div>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '36px',
-            fontWeight: 900,
-            color: 'var(--navy)',
-            margin: '0 0 8px',
-          }}>
-            Choose Your Style
-          </h2>
-          <p style={{ color: '#7a7268', fontSize: '15px', margin: '0 0 40px' }}>
-            Pick a format that fits the job you're applying for.
-          </p>
-        </div>
-
-        {/* Style grid */}
-        <div
-          className="animate-fade-up delay-100"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-            gap: '16px',
-            marginBottom: '40px',
-          }}
-        >
-          {styles.map((style) => (
-            <button
-              key={style.id}
-              onClick={() => onChange({ ...config, style: style.id })}
-              style={{
-                background: config.style === style.id ? 'white' : 'white',
-                border: `2px solid ${config.style === style.id ? 'var(--navy)' : '#ede9e0'}`,
-                borderRadius: '12px',
-                padding: '0',
-                cursor: 'pointer',
-                textAlign: 'left',
-                transition: 'all 0.2s ease',
-                overflow: 'hidden',
-                boxShadow: config.style === style.id ? '0 4px 20px rgba(26,39,68,0.15)' : '0 2px 8px rgba(0,0,0,0.04)',
-                position: 'relative',
-              }}
-            >
-              {/* Preview box */}
-              <div style={{
-                height: '110px',
-                background: '#f9f7f3',
-                borderBottom: '1px solid #ede9e0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-              }}>
-                <div style={{ width: '100%', height: '100%' }}>{style.preview}</div>
-              </div>
-
-              {/* Label */}
-              <div style={{ padding: '12px' }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: '4px',
-                }}>
-                  <span style={{ fontWeight: 700, fontSize: '14px', color: 'var(--navy)' }}>{style.name}</span>
-                  {config.style === style.id && (
-                    <div style={{
-                      width: '18px',
-                      height: '18px',
-                      borderRadius: '50%',
-                      background: 'var(--navy)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                      <Check size={10} color="white" strokeWidth={3} />
-                    </div>
-                  )}
-                </div>
-                <p style={{ fontSize: '11px', color: '#9a9288', margin: 0, lineHeight: 1.4 }}>{style.desc}</p>
-              </div>
-            </button>
-          ))}
-        </div>
-
-        {/* Cover letter toggle */}
-        <div
-          className="animate-fade-up delay-200"
-          style={{
-            background: 'white',
-            border: '1.5px solid #ede9e0',
-            borderRadius: '12px',
-            padding: '20px 24px',
-            marginBottom: '40px',
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '16px',
-          }}
-        >
-          <button
-            onClick={() => onChange({ ...config, includeCoverLetter: !config.includeCoverLetter })}
-            style={{
-              width: '20px',
-              height: '20px',
-              borderRadius: '4px',
-              border: `2px solid ${config.includeCoverLetter ? 'var(--navy)' : '#d0cac0'}`,
-              background: config.includeCoverLetter ? 'var(--navy)' : 'white',
-              cursor: 'pointer',
-              flexShrink: 0,
-              marginTop: '2px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.15s ease',
-            }}
-          >
-            {config.includeCoverLetter && <Check size={12} color="white" strokeWidth={3} />}
-          </button>
-          <div>
-            <div style={{ fontWeight: 600, fontSize: '15px', color: 'var(--navy)', marginBottom: '4px' }}>
-              Include a Cover Letter <span style={{ fontSize: '12px', color: 'var(--gold)', fontWeight: 500 }}>Optional</span>
-            </div>
-            <p style={{ fontSize: '13px', color: '#7a7268', margin: 0, lineHeight: 1.5 }}>
-              A cover letter can make your application stand out! Our AI will write a personalized one based on your information.
-            </p>
+        {/* Titlebar */}
+        <div className="win-titlebar">
+          <span>📄</span>
+          <span>ResumeUp — Step 1 of 4: Choose Resume Style</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: '2px' }}>
+            {['_', '□', '✕'].map((ch, i) => (
+              <button key={i} style={{
+                width: 16, height: 14, background: 'var(--win-gray)',
+                borderTop: '1px solid #fff', borderLeft: '1px solid #fff',
+                borderRight: '1px solid #404040', borderBottom: '1px solid #404040',
+                fontSize: '9px', cursor: 'default', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'var(--font-system)', color: 'black', padding: 0,
+              }}>{ch}</button>
+            ))}
           </div>
         </div>
 
-        {/* Next */}
-        <div className="animate-fade-up delay-300" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <button className="btn-primary" onClick={onNext} style={{ padding: '14px 32px' }}>
-            Continue <ArrowRight size={16} />
-          </button>
+        <div style={{ padding: '16px', background: 'var(--win-gray)' }}>
+
+          <div style={{ marginBottom: '12px' }}>
+            <div style={{ fontSize: '13px', fontWeight: 700, marginBottom: '4px' }}>Choose Your Style</div>
+            <div style={{ fontSize: '11px', color: 'var(--win-text)', marginBottom: '8px' }}>
+              Select a resume format that fits the job you&apos;re applying for.
+            </div>
+          </div>
+
+          <hr className="win-separator" />
+
+          {/* Style grid */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+            gap: '8px',
+            marginBottom: '12px',
+          }}>
+            {styles.map((style) => (
+              <button
+                key={style.id}
+                onClick={() => onChange({ ...config, style: style.id })}
+                style={{
+                  background: 'var(--win-gray)',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  outline: config.style === style.id ? '2px solid var(--win-highlight)' : 'none',
+                  outlineOffset: '1px',
+                }}
+              >
+                <div style={{
+                  borderTop: '2px solid var(--win-hilight)',
+                  borderLeft: '2px solid var(--win-hilight)',
+                  borderRight: '2px solid var(--win-border-dark)',
+                  borderBottom: '2px solid var(--win-border-dark)',
+                  overflow: 'hidden',
+                }}>
+                  {/* Preview */}
+                  <div style={{
+                    height: '80px',
+                    background: '#f0ede8',
+                    borderBottom: '1px solid var(--win-border-dark)',
+                    overflow: 'hidden',
+                  }}>
+                    {style.preview}
+                  </div>
+
+                  {/* Label */}
+                  <div style={{
+                    padding: '4px 6px',
+                    background: config.style === style.id ? 'var(--win-highlight)' : 'var(--win-gray)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}>
+                    {config.style === style.id && (
+                      <span style={{ color: 'white', fontSize: '10px' }}>✓</span>
+                    )}
+                    <span style={{
+                      fontWeight: 700,
+                      fontSize: '11px',
+                      color: config.style === style.id ? 'white' : 'var(--win-text)',
+                    }}>
+                      {style.name}
+                    </span>
+                  </div>
+                  <div style={{
+                    padding: '2px 6px 5px',
+                    background: config.style === style.id ? 'var(--win-highlight)' : 'var(--win-gray)',
+                  }}>
+                    <p style={{
+                      fontSize: '10px',
+                      color: config.style === style.id ? 'rgba(255,255,255,0.8)' : '#555',
+                      margin: 0,
+                      lineHeight: 1.3,
+                    }}>
+                      {style.desc}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          <hr className="win-separator" />
+
+          {/* Cover letter option */}
+          <div style={{ marginBottom: '16px' }}>
+            <div style={{ fontSize: '11px', fontWeight: 700, marginBottom: '6px' }}>Options:</div>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+              <button
+                onClick={() => onChange({ ...config, includeCoverLetter: !config.includeCoverLetter })}
+                className="win-checkbox"
+                style={{ marginTop: '1px' }}
+              >
+                {config.includeCoverLetter && (
+                  <span style={{ fontSize: '10px', fontWeight: 900, lineHeight: 1 }}>✓</span>
+                )}
+              </button>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: '11px', marginBottom: '2px' }}>
+                  Include Cover Letter <span style={{ fontWeight: 400, color: '#555' }}>(optional)</span>
+                </div>
+                <div style={{ fontSize: '11px', color: '#555', lineHeight: 1.4 }}>
+                  AI will generate a personalized cover letter based on your information.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr className="win-separator" />
+
+          {/* Buttons */}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+            <button className="win-btn" onClick={onBack} style={{ minWidth: '80px', justifyContent: 'center' }}>
+              &lt; Back
+            </button>
+            <button className="win-btn-primary" onClick={onNext} style={{ minWidth: '80px', justifyContent: 'center' }}>
+              Next &gt;
+            </button>
+            <button className="win-btn" style={{ minWidth: '80px', justifyContent: 'center' }}>
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div className="win-statusbar">
+          <div style={{
+            borderTop: '1px solid var(--win-border-dark)', borderLeft: '1px solid var(--win-border-dark)',
+            borderRight: '1px solid var(--win-hilight)', borderBottom: '1px solid var(--win-hilight)',
+            padding: '1px 8px',
+          }}>
+            Step 1 of 4 — Style selected: {config.style}
+          </div>
         </div>
       </div>
     </div>

@@ -19,53 +19,39 @@ export default function ProgressBar({ currentScreen, totalScreens }: ProgressBar
       left: 0,
       right: 0,
       zIndex: 999,
-      background: 'rgba(255,252,245,0.95)',
-      backdropFilter: 'blur(8px)',
-      borderBottom: '1px solid rgba(0,0,0,0.06)',
-      padding: '10px 24px',
+      background: 'var(--win-gray)',
+      borderBottom: '2px solid var(--win-border-dark)',
+      fontFamily: 'var(--font-system)',
     }}>
+      {/* Titlebar strip */}
       <div style={{
-        maxWidth: '900px',
-        margin: '0 auto',
+        background: 'linear-gradient(to right, var(--win-titlebar-start), var(--win-titlebar-end))',
+        color: 'white',
+        padding: '3px 8px',
         display: 'flex',
         alignItems: 'center',
-        gap: '16px',
+        gap: '8px',
+        fontSize: '11px',
+        fontWeight: 700,
       }}>
-        {/* Logo */}
-        <div style={{
-          fontFamily: 'var(--font-display)',
-          fontWeight: 700,
-          fontSize: '15px',
-          color: 'var(--navy)',
-          flexShrink: 0,
-        }}>
-          ResumeUp
+        <span>📄</span>
+        <span>ResumeUp — AI Resume Builder</span>
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 400 }}>
+          <span style={{ opacity: 0.8 }}>
+            Step: {screenLabels[currentScreen]}  ({currentScreen} / {totalScreens - 1})
+          </span>
         </div>
+      </div>
 
-        {/* Progress track */}
-        <div style={{ flex: 1, position: 'relative' }}>
-          <div style={{
-            background: '#e8e4de',
-            borderRadius: '100px',
-            height: '4px',
-            overflow: 'hidden',
-          }}>
-            <div
-              className="progress-bar"
-              style={{ width: `${progress}%`, height: '100%' }}
-            />
-          </div>
+      {/* Progress track */}
+      <div style={{ padding: '4px 8px 4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <span style={{ fontSize: '11px', whiteSpace: 'nowrap' }}>Progress:</span>
+        <div className="win-progress-track" style={{ flex: 1 }}>
+          <div className="win-progress-fill" style={{ width: `${progress}%` }} />
         </div>
-
-        {/* Step label */}
-        <div style={{
-          fontSize: '12px',
-          color: '#9a9288',
-          fontWeight: 500,
-          flexShrink: 0,
-        }}>
-          {screenLabels[currentScreen]} · {currentScreen}/{totalScreens - 1}
-        </div>
+        <span style={{ fontSize: '11px', whiteSpace: 'nowrap', minWidth: '32px' }}>
+          {Math.round(progress)}%
+        </span>
       </div>
     </div>
   );
