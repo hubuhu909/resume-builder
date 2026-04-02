@@ -68,184 +68,173 @@ export default function Screen6Download({ data, config, generatedResume, onResta
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--paper)', padding: '60px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ maxWidth: '560px', width: '100%', textAlign: 'center' }}>
+    <div style={{
+      minHeight: '100vh',
+      background: 'var(--win-desktop)',
+      display: 'flex',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+      padding: '20px',
+      paddingTop: '80px',
+      fontFamily: 'var(--font-system)',
+    }}>
+      <div className="win-window" style={{ width: '100%', maxWidth: '520px' }}>
 
-        {/* Confetti-like celebration */}
-        <div className="animate-fade-up" style={{ marginBottom: '32px' }}>
-          <div style={{
-            fontSize: '72px',
-            marginBottom: '16px',
-            filter: 'drop-shadow(0 8px 20px rgba(201,168,76,0.3))',
-          }}>
-            🎉
+        {/* Titlebar */}
+        <div className="win-titlebar">
+          <span>📄</span>
+          <span>ResumeUp — Download Your Resume</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: '2px' }}>
+            {['_', '□', '✕'].map((ch, i) => (
+              <button key={i} style={{
+                width: 16, height: 14, background: 'var(--win-gray)',
+                borderTop: '1px solid #fff', borderLeft: '1px solid #fff',
+                borderRight: '1px solid #404040', borderBottom: '1px solid #404040',
+                fontSize: '9px', cursor: 'default', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'var(--font-system)', color: 'black', padding: 0,
+              }}>{ch}</button>
+            ))}
           </div>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '42px',
-            fontWeight: 900,
-            color: 'var(--navy)',
-            margin: '0 0 8px',
-          }}>
-            You're Ready!
-          </h2>
-          <p style={{ fontSize: '17px', color: '#7a7268', margin: '0 0 8px' }}>
-            Your resume is complete, <strong>{data.firstName}</strong>. 🚀
-          </p>
-          <p style={{ fontSize: '14px', color: '#9a9288', margin: 0 }}>
-            Download it below and start applying to {data.firstName}'s dream jobs!
-          </p>
         </div>
 
-        {/* Download card */}
-        <div
-          className="animate-fade-up delay-100"
-          style={{
-            background: 'white',
-            border: '1.5px solid #ede9e0',
-            borderRadius: '16px',
-            padding: '28px',
-            marginBottom: '20px',
-            boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-          }}
-        >
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            padding: '16px',
-            background: '#f9f7f3',
-            borderRadius: '10px',
-            marginBottom: '20px',
-          }}>
-            <div style={{
-              width: '44px',
-              height: '44px',
-              background: 'var(--navy)',
-              borderRadius: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}>
-              <FileText size={22} color="#c9a84c" />
-            </div>
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--navy)' }}>
-                {data.firstName}_{data.lastName}_Resume.html
+        <div style={{ padding: '20px', background: 'var(--win-gray)' }}>
+
+          {/* Celebration area */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginBottom: '16px' }}>
+            <div style={{ fontSize: '48px', lineHeight: 1, flexShrink: 0 }}>🎉</div>
+            <div>
+              <div style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>
+                Resume Complete!
               </div>
-              <div style={{ fontSize: '12px', color: '#9a9288' }}>
-                {config.style.charAt(0).toUpperCase() + config.style.slice(1)} style • Print-ready
+              <div style={{ fontSize: '11px', color: 'var(--win-text)', lineHeight: 1.5 }}>
+                Your resume is ready, <strong>{data.firstName}</strong>!
+                Download it below and start applying to jobs.
               </div>
             </div>
-            {downloaded && (
-              <div style={{
-                marginLeft: 'auto',
-                width: '24px',
-                height: '24px',
-                borderRadius: '50%',
-                background: '#22c55e',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                <Check size={13} color="white" strokeWidth={3} />
-              </div>
-            )}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <button className="btn-gold" onClick={downloadHTML} style={{ justifyContent: 'center', padding: '14px' }}>
-              <Download size={18} />
-              {downloaded ? 'Download Again' : 'Download Resume (.html)'}
-            </button>
-            <button className="btn-primary" onClick={printResume} style={{ justifyContent: 'center', padding: '14px' }}>
-              🖨️ Print as PDF
-            </button>
+          <hr className="win-separator" />
+
+          {/* File info */}
+          <div className="win-groupbox" style={{ marginBottom: '12px' }}>
+            <span className="win-groupbox-label">File Details</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '32px' }}>📄</span>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: '11px' }}>
+                  {data.firstName}_{data.lastName}_Resume.html
+                </div>
+                <div style={{ fontSize: '11px', color: '#555' }}>
+                  {config.style.charAt(0).toUpperCase() + config.style.slice(1)} style · HTML Document · Print-ready
+                </div>
+                {downloaded && (
+                  <div style={{ fontSize: '11px', color: 'green', fontWeight: 700, marginTop: '2px' }}>
+                    ✓ Download complete
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Download buttons */}
+          <div className="win-groupbox" style={{ marginBottom: '12px' }}>
+            <span className="win-groupbox-label">Download Options</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <button
+                className="win-btn-primary"
+                onClick={downloadHTML}
+                style={{ justifyContent: 'center', padding: '6px 16px', fontSize: '12px' }}
+              >
+                <Download size={14} />
+                {downloaded ? 'Download Again (.html)' : 'Save Resume as .html File'}
+              </button>
+              <button
+                className="win-btn"
+                onClick={printResume}
+                style={{ justifyContent: 'center', padding: '6px 16px', fontSize: '12px' }}
+              >
+                🖨️ Print / Save as PDF
+              </button>
+              <button
+                className="win-btn"
+                onClick={copyHTML}
+                style={{ justifyContent: 'center', padding: '6px 16px', fontSize: '12px' }}
+              >
+                <Share2 size={12} />
+                {copyDone ? 'Copied to Clipboard! ✓' : 'Copy HTML Source Code'}
+              </button>
+            </div>
+          </div>
+
+          {/* PDF instructions */}
+          <div className="win-groupbox" style={{ marginBottom: '12px' }}>
+            <span className="win-groupbox-label">How to save as PDF:</span>
+            <ol style={{ margin: 0, paddingLeft: '16px', fontSize: '11px', color: '#333', lineHeight: 1.8 }}>
+              <li>Click &quot;Print / Save as PDF&quot; above</li>
+              <li>In the print dialog, set destination to <strong>&quot;Save as PDF&quot;</strong></li>
+              <li>Click Save — done!</li>
+            </ol>
+          </div>
+
+          {/* Tips */}
+          <div className="win-groupbox" style={{ marginBottom: '16px' }}>
+            <span className="win-groupbox-label">Job Application Tips</span>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
+              {[
+                { icon: '📧', tip: 'Tailor your resume for each job' },
+                { icon: '🔍', tip: 'Use keywords from the job description' },
+                { icon: '✅', tip: 'Proofread at least twice before sending' },
+                { icon: '💼', tip: 'Apply to 5+ jobs to improve chances' },
+              ].map(t => (
+                <div key={t.tip} style={{
+                  background: 'var(--win-white)',
+                  borderTop: '2px solid var(--win-border-dark)',
+                  borderLeft: '2px solid var(--win-border-dark)',
+                  borderRight: '2px solid var(--win-hilight)',
+                  borderBottom: '2px solid var(--win-hilight)',
+                  padding: '6px 8px',
+                  fontSize: '11px',
+                  color: '#333',
+                  lineHeight: 1.4,
+                }}>
+                  <span style={{ marginRight: '4px' }}>{t.icon}</span>
+                  {t.tip}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <hr className="win-separator" />
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <button
-              onClick={copyHTML}
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                padding: '12px', borderRadius: '8px', border: '1.5px solid #e2ddd5',
-                background: 'white', cursor: 'pointer', fontSize: '14px',
-                fontFamily: 'var(--font-body)', fontWeight: 500, color: 'var(--ink)',
-                transition: 'all 0.15s ease',
-              }}
+              className="win-btn"
+              onClick={onRestart}
+              style={{ fontSize: '11px' }}
             >
-              <Share2 size={15} />
-              {copyDone ? 'Copied! ✓' : 'Copy HTML Code'}
+              <RotateCcw size={11} /> Start Over
             </button>
+            <div style={{ fontSize: '11px', color: '#555' }}>
+              Good luck with your job search!
+            </div>
           </div>
         </div>
 
-        {/* Tips */}
-        <div
-          className="animate-fade-up delay-200"
-          style={{
-            background: 'rgba(26,39,68,0.04)',
-            borderRadius: '12px',
-            padding: '20px',
-            marginBottom: '24px',
-            textAlign: 'left',
-          }}
-        >
-          <p style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy)', marginBottom: '10px', marginTop: 0 }}>
-            📌 How to save as PDF:
-          </p>
-          <ol style={{ margin: 0, paddingLeft: '18px', fontSize: '13px', color: '#6b6560', lineHeight: 1.8 }}>
-            <li>Click "Print as PDF" above</li>
-            <li>In the print dialog, change destination to <strong>"Save as PDF"</strong></li>
-            <li>Click Save — done! 🎯</li>
-          </ol>
-        </div>
-
-        {/* Tips cards */}
-        <div
-          className="animate-fade-up delay-300"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '12px',
-            marginBottom: '28px',
-          }}
-        >
-          {[
-            { emoji: '📧', tip: 'Tailor your resume for each job application' },
-            { emoji: '🔍', tip: 'Use keywords from the job description' },
-            { emoji: '✅', tip: 'Proofread at least twice before sending' },
-            { emoji: '💼', tip: 'Apply to 5+ jobs to improve your chances' },
-          ].map(t => (
-            <div key={t.tip} style={{
-              background: 'white',
-              border: '1px solid #ede9e0',
-              borderRadius: '10px',
-              padding: '14px',
-              fontSize: '12px',
-              color: '#6b6560',
-              lineHeight: 1.5,
-              textAlign: 'left',
-            }}>
-              <span style={{ fontSize: '18px', display: 'block', marginBottom: '4px' }}>{t.emoji}</span>
-              {t.tip}
-            </div>
-          ))}
-        </div>
-
-        <div className="animate-fade-up delay-400">
-          <button
-            onClick={onRestart}
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '6px',
-              background: 'none', border: 'none', cursor: 'pointer',
-              color: '#9a9288', fontSize: '13px', fontFamily: 'var(--font-body)',
-              textDecoration: 'underline', textDecorationColor: 'transparent',
-              transition: 'color 0.15s ease',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.color = 'var(--navy)'; }}
-            onMouseLeave={e => { e.currentTarget.style.color = '#9a9288'; }}
-          >
-            <RotateCcw size={13} /> Start over with a new resume
-          </button>
+        <div className="win-statusbar">
+          <div style={{
+            borderTop: '1px solid var(--win-border-dark)', borderLeft: '1px solid var(--win-border-dark)',
+            borderRight: '1px solid var(--win-hilight)', borderBottom: '1px solid var(--win-hilight)',
+            padding: '1px 8px', flex: 1,
+          }}>
+            {downloaded ? 'File saved successfully' : 'Ready to download'}
+          </div>
+          <div style={{
+            borderTop: '1px solid var(--win-border-dark)', borderLeft: '1px solid var(--win-border-dark)',
+            borderRight: '1px solid var(--win-hilight)', borderBottom: '1px solid var(--win-hilight)',
+            padding: '1px 8px',
+          }}>
+            ResumeUp v1.0
+          </div>
         </div>
       </div>
     </div>

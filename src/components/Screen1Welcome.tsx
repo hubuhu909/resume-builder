@@ -1,6 +1,6 @@
 'use client';
 
-import { Sparkles, FileText, MessageCircle, Download, ArrowRight } from 'lucide-react';
+import { FileText, ArrowRight, Sparkles, MessageCircle, Download } from 'lucide-react';
 
 interface Screen1Props {
   onNext: () => void;
@@ -10,221 +10,161 @@ export default function Screen1Welcome({ onNext }: Screen1Props) {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'var(--paper)',
+      background: 'var(--win-desktop)',
       display: 'flex',
-      flexDirection: 'column',
-      position: 'relative',
-      overflow: 'hidden',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px',
+      fontFamily: 'var(--font-system)',
     }}>
-      {/* Background decoration */}
-      <div style={{
-        position: 'absolute',
-        top: '-200px',
-        right: '-200px',
-        width: '600px',
-        height: '600px',
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-      <div style={{
-        position: 'absolute',
-        bottom: '-100px',
-        left: '-100px',
-        width: '400px',
-        height: '400px',
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(26,39,68,0.05) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
+      {/* Main Window */}
+      <div className="win-window" style={{ width: '100%', maxWidth: '560px' }}>
 
-      {/* Nav */}
-      <nav style={{
-        padding: '20px 40px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        borderBottom: '1px solid rgba(0,0,0,0.06)',
-      }}>
+        {/* Titlebar */}
+        <div className="win-titlebar">
+          <img
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 16 16'%3E%3Crect width='8' height='8' fill='%23ff0000'/%3E%3Crect x='8' width='8' height='8' fill='%2300ff00'/%3E%3Crect y='8' width='8' height='8' fill='%230000ff'/%3E%3Crect x='8' y='8' width='8' height='8' fill='%23ffff00'/%3E%3C/svg%3E"
+            alt="icon"
+            style={{ width: 14, height: 14, imageRendering: 'pixelated' }}
+          />
+          <span>ResumeUp — AI Resume Builder</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: '2px' }}>
+            {['_', '□', '✕'].map((ch, i) => (
+              <button key={i} style={{
+                width: 16, height: 14, background: 'var(--win-gray)',
+                borderTop: '1px solid #fff', borderLeft: '1px solid #fff',
+                borderRight: '1px solid #404040', borderBottom: '1px solid #404040',
+                fontSize: '9px', cursor: 'default', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'var(--font-system)', color: 'black', padding: 0, lineHeight: 1,
+              }}>{ch}</button>
+            ))}
+          </div>
+        </div>
+
+        {/* Menu bar */}
         <div style={{
-          width: '32px',
-          height: '32px',
-          background: 'var(--navy)',
-          borderRadius: '8px',
+          background: 'var(--win-gray)',
+          borderBottom: '1px solid var(--win-border-dark)',
+          padding: '2px 4px',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          gap: '2px',
         }}>
-          <FileText size={16} color="#c9a84c" />
-        </div>
-        <span style={{
-          fontFamily: 'var(--font-display)',
-          fontWeight: 700,
-          fontSize: '18px',
-          color: 'var(--navy)',
-        }}>
-          ResumeUp
-        </span>
-      </nav>
-
-      {/* Hero */}
-      <main style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '60px 24px',
-        textAlign: 'center',
-      }}>
-        {/* Badge */}
-        <div
-          className="animate-fade-up"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            background: 'rgba(201,168,76,0.12)',
-            border: '1px solid rgba(201,168,76,0.3)',
-            borderRadius: '100px',
-            padding: '6px 14px',
-            marginBottom: '28px',
-          }}
-        >
-          <Sparkles size={12} color="var(--gold)" />
-          <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--gold)', letterSpacing: '0.05em' }}>
-            AI-POWERED RESUME BUILDER
-          </span>
-        </div>
-
-        {/* Headline */}
-        <h1
-          className="animate-fade-up delay-100"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(42px, 7vw, 80px)',
-            fontWeight: 900,
-            lineHeight: 1.05,
-            color: 'var(--navy)',
-            margin: '0 0 8px',
-            maxWidth: '800px',
-          }}
-        >
-          Your First Job
-          <br />
-          <span className="gradient-text">Starts Here.</span>
-        </h1>
-
-        <p
-          className="animate-fade-up delay-200"
-          style={{
-            fontSize: '18px',
-            color: '#6b6560',
-            maxWidth: '500px',
-            lineHeight: 1.7,
-            margin: '20px auto 48px',
-            fontWeight: 400,
-          }}
-        >
-          Build a professional resume in minutes — powered by AI, designed for high school students ready to make their mark.
-        </p>
-
-        {/* CTA */}
-        <div className="animate-fade-up delay-300">
-          <button className="btn-gold" onClick={onNext} style={{ padding: '16px 40px', fontSize: '16px' }}>
-            Build My Resume
-            <ArrowRight size={18} />
-          </button>
-        </div>
-
-        {/* Feature pills */}
-        <div
-          className="animate-fade-up delay-400"
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '12px',
-            justifyContent: 'center',
-            marginTop: '48px',
-          }}
-        >
-          {[
-            { icon: '✨', text: 'AI-Enhanced Writing' },
-            { icon: '🎨', text: '4 Professional Styles' },
-            { icon: '💬', text: 'Live AI Coach' },
-            { icon: '📥', text: 'Instant Download' },
-          ].map((f) => (
-            <div
-              key={f.text}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: 'white',
-                border: '1px solid #ede9e0',
-                borderRadius: '100px',
-                padding: '8px 16px',
-                fontSize: '13px',
-                color: 'var(--ink)',
-                fontWeight: 500,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-              }}
-            >
-              <span>{f.icon}</span>
-              <span>{f.text}</span>
-            </div>
+          {['File', 'Edit', 'View', 'Help'].map(m => (
+            <button key={m} style={{
+              background: 'none', border: 'none', padding: '2px 6px',
+              fontFamily: 'var(--font-system)', fontSize: '11px', cursor: 'pointer',
+              color: 'var(--win-text)',
+            }}>{m}</button>
           ))}
         </div>
 
-        {/* Steps */}
-        <div
-          className="animate-fade-up delay-500"
-          style={{
-            display: 'flex',
-            gap: '4px',
-            alignItems: 'center',
-            marginTop: '64px',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-          }}
-        >
-          {[
-            { num: '01', label: 'Choose Style' },
-            { num: '02', label: 'Pick Your Job' },
-            { num: '03', label: 'Fill Details' },
-            { num: '04', label: 'AI Builds It' },
-            { num: '05', label: 'Download!' },
-          ].map((step, i) => (
-            <div key={step.num} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        {/* Body */}
+        <div style={{ padding: '20px', background: 'var(--win-gray)' }}>
+
+          {/* Header area with icon */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginBottom: '16px' }}>
+            <div style={{ flexShrink: 0 }}>
               <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '8px 14px',
-                borderRadius: '8px',
-                background: 'white',
-                border: '1px solid #ede9e0',
+                width: '48px', height: '48px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '36px', lineHeight: 1,
               }}>
-                <span style={{ fontSize: '10px', fontWeight: 700, color: 'var(--gold)', fontFamily: 'var(--font-mono)' }}>
-                  {step.num}
-                </span>
-                <span style={{ fontSize: '12px', color: 'var(--ink)', fontWeight: 500 }}>{step.label}</span>
+                📄
               </div>
-              {i < 4 && <span style={{ color: '#ccc', fontSize: '16px', padding: '0 2px' }}>›</span>}
             </div>
-          ))}
-        </div>
-      </main>
+            <div>
+              <div style={{ fontSize: '18px', fontWeight: 700, marginBottom: '4px', color: 'var(--win-text)' }}>
+                Welcome to ResumeUp
+              </div>
+              <div style={{ fontSize: '11px', color: 'var(--win-text)', lineHeight: 1.5 }}>
+                Build a professional resume in minutes — powered by AI,<br />
+                designed for high school students ready to make their mark.
+              </div>
+            </div>
+          </div>
 
-      {/* Footer */}
-      <footer style={{
-        textAlign: 'center',
-        padding: '20px',
-        fontSize: '12px',
-        color: '#b0a898',
-      }}>
-        Free to use · No account required · Takes less than 10 minutes
-      </footer>
+          <hr className="win-separator" />
+
+          {/* Feature list */}
+          <div className="win-panel-inset" style={{ marginBottom: '12px', padding: '8px 12px' }}>
+            <div style={{ fontWeight: 700, marginBottom: '6px', fontSize: '11px' }}>This wizard will help you:</div>
+            {[
+              { icon: '✨', text: 'Choose a professional resume style' },
+              { icon: '🎯', text: 'Select your job category' },
+              { icon: '📝', text: 'Enter your information' },
+              { icon: '🤖', text: 'Generate an AI-powered resume' },
+              { icon: '📥', text: 'Download your finished resume' },
+            ].map(f => (
+              <div key={f.text} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', fontSize: '11px' }}>
+                <span>{f.icon}</span>
+                <span>{f.text}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Steps indicator */}
+          <div style={{ marginBottom: '16px' }}>
+            <div style={{ fontSize: '11px', fontWeight: 700, marginBottom: '6px' }}>Steps:</div>
+            <div style={{ display: 'flex', gap: '4px', alignItems: 'center', flexWrap: 'wrap' }}>
+              {[
+                { num: '1', label: 'Style' },
+                { num: '2', label: 'Job Type' },
+                { num: '3', label: 'Your Info' },
+                { num: '4', label: 'AI Build' },
+                { num: '5', label: 'Download' },
+              ].map((step, i) => (
+                <div key={step.num} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '4px',
+                    background: 'var(--win-gray)', padding: '2px 8px',
+                    border: '1px solid var(--win-border-dark)',
+                    fontSize: '11px',
+                  }}>
+                    <span style={{ fontWeight: 700, color: 'var(--win-blue)' }}>{step.num}.</span>
+                    <span>{step.label}</span>
+                  </div>
+                  {i < 4 && <span style={{ color: 'var(--win-text)', fontSize: '11px' }}>▶</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <hr className="win-separator" />
+
+          {/* Info balloon */}
+          <div className="win-balloon" style={{ marginBottom: '16px' }}>
+            <span style={{ fontWeight: 700 }}>ℹ Free to use</span> · No account required · Takes less than 10 minutes
+          </div>
+
+          {/* Action buttons */}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+            <button className="win-btn-primary" onClick={onNext} style={{ minWidth: '120px', justifyContent: 'center' }}>
+              Next &gt;
+            </button>
+            <button className="win-btn" style={{ minWidth: '80px', justifyContent: 'center' }}>
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        {/* Status bar */}
+        <div className="win-statusbar">
+          <div style={{
+            borderTop: '1px solid var(--win-border-dark)', borderLeft: '1px solid var(--win-border-dark)',
+            borderRight: '1px solid var(--win-hilight)', borderBottom: '1px solid var(--win-hilight)',
+            padding: '1px 8px', flex: 1,
+          }}>
+            Ready
+          </div>
+          <div style={{
+            borderTop: '1px solid var(--win-border-dark)', borderLeft: '1px solid var(--win-border-dark)',
+            borderRight: '1px solid var(--win-hilight)', borderBottom: '1px solid var(--win-hilight)',
+            padding: '1px 8px',
+          }}>
+            AI-Powered
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

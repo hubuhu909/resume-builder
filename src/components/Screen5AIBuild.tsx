@@ -62,7 +62,6 @@ export default function Screen5AIBuild({
     setIsGenerating(true);
     setProgress(0);
 
-    // Animated progress
     let step = 0;
     const interval = setInterval(() => {
       step++;
@@ -91,13 +90,10 @@ export default function Screen5AIBuild({
 
       clearInterval(interval);
       setProgress(100);
-      setStatusMsg('Your resume is ready! 🎉');
+      setStatusMsg('Your resume is ready!');
 
       onResumeChange(resumeData.content || '');
       setEditContent(resumeData.content || '');
-      if (coverData) {
-        // handled by parent
-      }
 
       setTimeout(() => setIsGenerating(false), 600);
     } catch (err) {
@@ -113,202 +109,241 @@ export default function Screen5AIBuild({
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--cream)', padding: '32px 24px' }}>
-      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+    <div style={{
+      minHeight: '100vh',
+      background: 'var(--win-desktop)',
+      display: 'flex',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+      padding: '20px',
+      paddingTop: '80px',
+      fontFamily: 'var(--font-system)',
+    }}>
+      <div className="win-window" style={{ width: '100%', maxWidth: '900px' }}>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
-          <button className="btn-outline" onClick={onBack} style={{ padding: '8px 16px', fontSize: '13px' }}>
-            <ArrowLeft size={14} /> Back
-          </button>
-          <div style={{ flex: 1 }}>
-            <div className="section-label">Step 4 of 4</div>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 900, color: 'var(--navy)', margin: '2px 0 0' }}>
-              Your AI-Generated Resume
-            </h2>
+        {/* Titlebar */}
+        <div className="win-titlebar">
+          <span>📄</span>
+          <span>ResumeUp — Step 4 of 4: Your AI-Generated Resume</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: '2px' }}>
+            {['_', '□', '✕'].map((ch, i) => (
+              <button key={i} style={{
+                width: 16, height: 14, background: 'var(--win-gray)',
+                borderTop: '1px solid #fff', borderLeft: '1px solid #fff',
+                borderRight: '1px solid #404040', borderBottom: '1px solid #404040',
+                fontSize: '9px', cursor: 'default', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'var(--font-system)', color: 'black', padding: 0,
+              }}>{ch}</button>
+            ))}
           </div>
         </div>
 
-        {isGenerating ? (
+        {/* Toolbar */}
+        <div style={{
+          background: 'var(--win-gray)',
+          borderBottom: '1px solid var(--win-border-dark)',
+          padding: '4px 8px',
+          display: 'flex',
+          gap: '2px',
+          alignItems: 'center',
+        }}>
+          <button className="win-btn" onClick={onBack} style={{ padding: '3px 10px' }}>
+            &lt; Back
+          </button>
           <div style={{
-            background: 'white',
-            borderRadius: '16px',
-            padding: '80px 40px',
-            textAlign: 'center',
-            border: '1.5px solid #ede9e0',
-          }}>
-            {/* Animated progress */}
-            <div style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              background: 'rgba(201,168,76,0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 28px',
-              animation: 'pulse 2s ease-in-out infinite',
-            }}>
-              <span style={{ fontSize: '36px' }}>✨</span>
-            </div>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '24px', color: 'var(--navy)', margin: '0 0 8px' }}>
-              Building Your Resume...
-            </h3>
-            <p style={{ color: '#7a7268', margin: '0 0 32px', fontSize: '15px' }}>{statusMsg}</p>
-
-            {/* Progress bar */}
-            <div style={{ background: '#f0ece6', borderRadius: '100px', height: '8px', maxWidth: '400px', margin: '0 auto 12px', overflow: 'hidden' }}>
-              <div
-                className="progress-bar"
-                style={{ width: `${progress}%`, height: '100%', borderRadius: '100px', transition: 'width 0.8s ease' }}
-              />
-            </div>
-            <p style={{ fontSize: '13px', color: '#b0a898', margin: 0 }}>{progress}% complete</p>
-
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '24px' }}>
-              <span className="loading-dot" />
-              <span className="loading-dot" />
-              <span className="loading-dot" />
-            </div>
-          </div>
-        ) : (
-          <>
-            {/* Tab bar */}
-            {config.includeCoverLetter && (
-              <div style={{ display: 'flex', gap: '4px', marginBottom: '16px' }}>
-                {(['resume', 'cover'] as const).map(tab => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    style={{
-                      padding: '8px 20px',
-                      borderRadius: '8px',
-                      border: 'none',
-                      background: activeTab === tab ? 'var(--navy)' : 'white',
-                      color: activeTab === tab ? 'white' : 'var(--ink)',
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '13px',
-                      fontWeight: activeTab === tab ? 600 : 400,
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease',
-                    }}
-                  >
-                    {tab === 'resume' ? '📄 Resume' : '✉️ Cover Letter'}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Toolbar */}
-            <div style={{
-              display: 'flex',
-              gap: '8px',
-              marginBottom: '12px',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-            }}>
+            width: '1px',
+            height: '20px',
+            borderLeft: '1px solid var(--win-border-dark)',
+            borderRight: '1px solid var(--win-hilight)',
+            margin: '0 4px',
+          }} />
+          {!isGenerating && (
+            <>
               <button
+                className="win-btn"
                 onClick={() => { setIsEditing(!isEditing); setEditContent(generatedResume); }}
-                className="btn-outline"
-                style={{ padding: '8px 16px', fontSize: '13px' }}
+                style={{ padding: '3px 10px' }}
               >
-                <Edit3 size={14} /> {isEditing ? 'Preview' : 'Edit HTML'}
+                <Edit3 size={12} /> {isEditing ? 'Preview' : 'Edit HTML'}
               </button>
               <button
+                className="win-btn"
                 onClick={generateResume}
+                style={{ padding: '3px 10px' }}
+              >
+                <RefreshCw size={12} /> Regenerate
+              </button>
+            </>
+          )}
+          {config.includeCoverLetter && !isGenerating && (
+            <>
+              <div style={{
+                width: '1px', height: '20px',
+                borderLeft: '1px solid var(--win-border-dark)', borderRight: '1px solid var(--win-hilight)',
+                margin: '0 4px',
+              }} />
+              <button
+                className={activeTab === 'resume' ? 'win-btn' : 'win-btn'}
+                onClick={() => setActiveTab('resume')}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: '6px',
-                  padding: '8px 16px', borderRadius: '8px', border: '1.5px solid #e2ddd5',
-                  background: 'white', cursor: 'pointer', fontSize: '13px', fontFamily: 'var(--font-body)',
+                  padding: '3px 10px',
+                  background: activeTab === 'resume' ? 'var(--win-white)' : 'var(--win-gray)',
                 }}
               >
-                <RefreshCw size={14} /> Regenerate
+                📄 Resume
               </button>
-              <div style={{ flex: 1 }} />
-              <span style={{ fontSize: '12px', color: '#9a9288', fontStyle: 'italic' }}>
-                ✅ You can edit directly below
-              </span>
-            </div>
+              <button
+                className="win-btn"
+                onClick={() => setActiveTab('cover')}
+                style={{
+                  padding: '3px 10px',
+                  background: activeTab === 'cover' ? 'var(--win-white)' : 'var(--win-gray)',
+                }}
+              >
+                ✉️ Cover Letter
+              </button>
+            </>
+          )}
+        </div>
 
-            {/* Resume display */}
-            <div style={{
-              background: 'white',
-              borderRadius: '12px',
-              border: '1.5px solid #ede9e0',
-              overflow: 'hidden',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
-              marginBottom: '24px',
-            }}>
-              {isEditing ? (
-                <div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '12px 16px',
-                    borderBottom: '1px solid #ede9e0',
-                    background: '#f9f7f3',
-                  }}>
-                    <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--navy)' }}>Edit HTML Source</span>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <button onClick={handleSaveEdit} className="btn-primary" style={{ padding: '6px 14px', fontSize: '12px' }}>
-                        <Save size={12} /> Save Changes
-                      </button>
-                      <button onClick={() => setIsEditing(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#888' }}>
-                        <X size={16} />
-                      </button>
+        <div style={{ padding: '16px', background: 'var(--win-gray)' }}>
+
+          {isGenerating ? (
+            <div style={{ padding: '32px 20px', textAlign: 'center' }}>
+              {/* Classic Win2k wait dialog */}
+              <div style={{
+                display: 'inline-block',
+                marginBottom: '20px',
+                fontSize: '48px',
+                lineHeight: 1,
+              }}>
+                🤖
+              </div>
+              <div style={{ fontSize: '14px', fontWeight: 700, marginBottom: '6px' }}>
+                Building Your Resume...
+              </div>
+              <div style={{ fontSize: '11px', color: '#555', marginBottom: '20px' }}>{statusMsg}</div>
+
+              {/* Progress bar */}
+              <div style={{ maxWidth: '400px', margin: '0 auto 8px' }}>
+                <div className="win-progress-track">
+                  <div className="win-progress-fill" style={{ width: `${progress}%` }} />
+                </div>
+              </div>
+              <div style={{ fontSize: '11px', color: '#555', marginBottom: '16px' }}>
+                {progress}% complete
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '4px' }}>
+                <span className="loading-dot" />
+                <span className="loading-dot" />
+                <span className="loading-dot" />
+              </div>
+
+              <div className="win-balloon" style={{ maxWidth: '360px', margin: '20px auto 0', textAlign: 'left' }}>
+                ℹ Please wait while AI generates your professional resume. This may take a moment.
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Resume display */}
+              <div style={{
+                background: 'var(--win-white)',
+                borderTop: '2px solid var(--win-border-dark)',
+                borderLeft: '2px solid var(--win-border-dark)',
+                borderRight: '2px solid var(--win-hilight)',
+                borderBottom: '2px solid var(--win-hilight)',
+                marginBottom: '12px',
+                overflow: 'hidden',
+              }}>
+                {isEditing ? (
+                  <div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '4px 8px',
+                      background: 'var(--win-gray)',
+                      borderBottom: '1px solid var(--win-border-dark)',
+                    }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700 }}>Edit HTML Source</span>
+                      <div style={{ display: 'flex', gap: '4px' }}>
+                        <button onClick={handleSaveEdit} className="win-btn" style={{ padding: '2px 8px', fontSize: '11px' }}>
+                          <Save size={10} /> Save
+                        </button>
+                        <button onClick={() => setIsEditing(false)} className="win-btn" style={{ padding: '2px 6px', fontSize: '11px' }}>
+                          <X size={10} />
+                        </button>
+                      </div>
                     </div>
+                    <textarea
+                      value={editContent}
+                      onChange={e => setEditContent(e.target.value)}
+                      style={{
+                        width: '100%',
+                        height: '600px',
+                        padding: '8px',
+                        fontFamily: 'Courier New, monospace',
+                        fontSize: '11px',
+                        lineHeight: '1.4',
+                        border: 'none',
+                        outline: 'none',
+                        resize: 'vertical',
+                        color: '#000',
+                        background: 'var(--win-white)',
+                      }}
+                    />
                   </div>
-                  <textarea
-                    value={editContent}
-                    onChange={e => setEditContent(e.target.value)}
+                ) : (
+                  <iframe
+                    ref={iframeRef}
                     style={{
                       width: '100%',
-                      height: '600px',
-                      padding: '16px',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '12px',
-                      lineHeight: '1.6',
+                      height: '650px',
                       border: 'none',
-                      outline: 'none',
-                      resize: 'vertical',
-                      color: '#333',
+                      display: 'block',
                     }}
+                    title="Resume Preview"
                   />
-                </div>
-              ) : (
-                <iframe
-                  ref={iframeRef}
-                  style={{
-                    width: '100%',
-                    height: '700px',
-                    border: 'none',
-                  }}
-                  title="Resume Preview"
-                />
-              )}
-            </div>
+                )}
+              </div>
 
-            {/* Tip */}
-            <div style={{
-              background: 'rgba(201,168,76,0.08)',
-              border: '1px solid rgba(201,168,76,0.25)',
-              borderRadius: '10px',
-              padding: '14px 18px',
-              marginBottom: '24px',
-              fontSize: '13px',
-              color: '#6b5a28',
-              lineHeight: 1.6,
-            }}>
-              💡 <strong>Tip:</strong> Use the AI chatbox in the bottom right to ask for specific improvements — like "make my experience section stronger" or "add more action verbs."
-            </div>
+              {/* Tip */}
+              <div className="win-balloon" style={{ marginBottom: '12px' }}>
+                <span style={{ fontWeight: 700 }}>ℹ Tip:</span> Use the AI Assistant in the bottom-right to ask for
+                improvements — like &quot;make my experience section stronger&quot; or &quot;add more action verbs.&quot;
+              </div>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <button className="btn-gold" onClick={onNext} style={{ padding: '14px 32px', fontSize: '15px' }}>
-                Download Resume <ArrowRight size={16} />
-              </button>
-            </div>
-          </>
-        )}
+              <hr className="win-separator" />
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+                <button className="win-btn-primary" onClick={onNext} style={{ minWidth: '160px', justifyContent: 'center' }}>
+                  Download Resume &gt;
+                </button>
+                <button className="win-btn" style={{ minWidth: '80px', justifyContent: 'center' }}>
+                  Cancel
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+
+        <div className="win-statusbar">
+          <div style={{
+            borderTop: '1px solid var(--win-border-dark)', borderLeft: '1px solid var(--win-border-dark)',
+            borderRight: '1px solid var(--win-hilight)', borderBottom: '1px solid var(--win-hilight)',
+            padding: '1px 8px', flex: 1,
+          }}>
+            {isGenerating ? `Generating... ${progress}%` : 'Resume generated successfully'}
+          </div>
+          <div style={{
+            borderTop: '1px solid var(--win-border-dark)', borderLeft: '1px solid var(--win-border-dark)',
+            borderRight: '1px solid var(--win-hilight)', borderBottom: '1px solid var(--win-hilight)',
+            padding: '1px 8px',
+          }}>
+            Style: {config.style}
+          </div>
+        </div>
       </div>
     </div>
   );

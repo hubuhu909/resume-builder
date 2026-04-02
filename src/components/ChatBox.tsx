@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Sparkles, ChevronDown } from 'lucide-react';
+import { X, Send, ChevronDown } from 'lucide-react';
 import { ResumeData, ResumeConfig } from '@/types/resume';
 
 interface Message {
@@ -15,9 +15,9 @@ interface ChatBoxProps {
   currentScreen: number;
 }
 
-const WELCOME_MESSAGE = `Hi! 👋 I'm your AI resume coach! I'm here to help you craft the perfect resume.
+const WELCOME_MESSAGE = `Hello! I'm your AI Resume Assistant!
 
-Here are some things I can help with:
+I can help you with:
 • "How do I make my experience sound better?"
 • "What skills should I add for retail jobs?"
 • "How do I write a good objective statement?"
@@ -81,7 +81,7 @@ export default function ChatBox({ resumeData, config, currentScreen }: ChatBoxPr
     } catch {
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: "Oops! I had trouble connecting. Please try again in a moment! 🙏"
+        content: 'Error: Could not connect to AI assistant. Please try again.'
       }]);
     } finally {
       setIsLoading(false);
@@ -96,230 +96,246 @@ export default function ChatBox({ resumeData, config, currentScreen }: ChatBoxPr
   };
 
   const quickPrompts = [
-    "How do I make my experience stronger?",
-    "What skills should I highlight?",
-    "How do I write a good summary?",
-    "Tips for my first job resume",
+    'How do I make my experience stronger?',
+    'What skills should I highlight?',
+    'How do I write a good summary?',
+    'Tips for my first job resume',
   ];
 
   return (
     <>
-      {/* Floating button */}
-      <button
-        onClick={() => { setIsOpen(true); setHasNewMessage(false); }}
-        style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          width: '56px',
-          height: '56px',
-          borderRadius: '50%',
-          background: 'linear-gradient(135deg, #1a2744 0%, #2d4068 100%)',
-          border: 'none',
-          cursor: 'pointer',
-          display: isOpen ? 'none' : 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 4px 20px rgba(26, 39, 68, 0.4)',
-          zIndex: 1000,
-          transition: 'transform 0.2s ease',
-        }}
-        onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.1)')}
-        onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
-      >
-        <MessageCircle size={24} color="white" />
-        {hasNewMessage && (
-          <span style={{
-            position: 'absolute',
-            top: '8px',
-            right: '8px',
-            width: '10px',
-            height: '10px',
-            borderRadius: '50%',
-            background: '#e85d3a',
-            border: '2px solid white',
-          }} />
-        )}
-      </button>
-
-      {/* Chat panel */}
-      {isOpen && (
-        <div
-          className="animate-slide-in"
+      {/* Taskbar button */}
+      {!isOpen && (
+        <button
+          onClick={() => { setIsOpen(true); setHasNewMessage(false); }}
           style={{
             position: 'fixed',
-            bottom: '24px',
-            right: '24px',
-            width: '360px',
-            height: isMinimized ? '56px' : '520px',
-            background: '#fffcf5',
-            borderRadius: '16px',
-            boxShadow: '0 20px 60px rgba(15, 14, 23, 0.15), 0 4px 16px rgba(15, 14, 23, 0.08)',
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden',
-            zIndex: 1000,
-            transition: 'height 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-            border: '1px solid #ede9e0',
-          }}
-        >
-          {/* Header */}
-          <div style={{
-            background: 'linear-gradient(135deg, #1a2744 0%, #2d4068 100%)',
-            padding: '14px 16px',
+            bottom: '8px',
+            right: '16px',
+            background: 'var(--win-gray)',
+            borderTop: '2px solid var(--win-hilight)',
+            borderLeft: '2px solid var(--win-hilight)',
+            borderRight: '2px solid var(--win-border-dark)',
+            borderBottom: '2px solid var(--win-border-dark)',
+            cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
-            flexShrink: 0,
-          }}>
-            <div style={{
-              width: '32px',
-              height: '32px',
+            gap: '6px',
+            padding: '4px 10px',
+            fontFamily: 'var(--font-system)',
+            fontSize: '11px',
+            fontWeight: 700,
+            zIndex: 1000,
+            color: 'var(--win-text)',
+            minWidth: '140px',
+          }}
+        >
+          <span>💬</span>
+          <span>AI Resume Assistant</span>
+          {hasNewMessage && (
+            <span style={{
+              background: 'red',
+              color: 'white',
               borderRadius: '50%',
-              background: 'rgba(201, 168, 76, 0.3)',
+              width: '14px',
+              height: '14px',
+              fontSize: '8px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-            }}>
-              <Sparkles size={16} color="#c9a84c" />
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ color: 'white', fontWeight: 600, fontSize: '14px', fontFamily: 'var(--font-body)' }}>
-                AI Resume Coach
-              </div>
-              <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '11px' }}>
-                Always here to help ✨
-              </div>
-            </div>
-            <button
-              onClick={() => setIsMinimized(!isMinimized)}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', display: 'flex' }}
-            >
-              <ChevronDown size={18} style={{ transform: isMinimized ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-            </button>
-            <button
-              onClick={() => setIsOpen(false)}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', display: 'flex' }}
-            >
-              <X size={18} />
-            </button>
-          </div>
-
-          {!isMinimized && (
-            <>
-              {/* Messages */}
-              <div style={{
-                flex: 1,
-                overflowY: 'auto',
-                padding: '16px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-              }}>
-                {messages.map((msg, i) => (
-                  <div
-                    key={i}
-                    className={msg.role === 'user' ? 'chat-bubble-user' : 'chat-bubble-ai'}
-                    style={{ alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start' }}
-                  >
-                    {msg.content}
-                  </div>
-                ))}
-
-                {isLoading && (
-                  <div className="chat-bubble-ai" style={{ alignSelf: 'flex-start' }}>
-                    <span className="loading-dot" />
-                    <span className="loading-dot" />
-                    <span className="loading-dot" />
-                  </div>
-                )}
-
-                {/* Quick prompts */}
-                {messages.length === 1 && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '4px' }}>
-                    {quickPrompts.map((prompt, i) => (
-                      <button
-                        key={i}
-                        onClick={() => { setInput(prompt); inputRef.current?.focus(); }}
-                        style={{
-                          background: 'white',
-                          border: '1px solid #ede9e0',
-                          borderRadius: '8px',
-                          padding: '8px 12px',
-                          fontSize: '12px',
-                          cursor: 'pointer',
-                          textAlign: 'left',
-                          color: '#1a2744',
-                          fontFamily: 'var(--font-body)',
-                          transition: 'all 0.15s ease',
-                        }}
-                        onMouseEnter={e => { e.currentTarget.style.borderColor = '#c9a84c'; e.currentTarget.style.background = '#fdf9ef'; }}
-                        onMouseLeave={e => { e.currentTarget.style.borderColor = '#ede9e0'; e.currentTarget.style.background = 'white'; }}
-                      >
-                        {prompt}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                <div ref={messagesEndRef} />
-              </div>
-
-              {/* Input */}
-              <div style={{
-                padding: '12px 16px',
-                borderTop: '1px solid #ede9e0',
-                display: 'flex',
-                gap: '8px',
-                alignItems: 'flex-end',
-                background: 'white',
-              }}>
-                <textarea
-                  ref={inputRef}
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Ask anything about your resume..."
-                  rows={1}
-                  style={{
-                    flex: 1,
-                    border: '1.5px solid #e2ddd5',
-                    borderRadius: '8px',
-                    padding: '8px 12px',
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '13px',
-                    resize: 'none',
-                    outline: 'none',
-                    maxHeight: '80px',
-                    overflow: 'auto',
-                    lineHeight: '1.5',
-                    color: 'var(--ink)',
-                  }}
-                  onFocus={e => { e.target.style.borderColor = '#c9a84c'; }}
-                  onBlur={e => { e.target.style.borderColor = '#e2ddd5'; }}
-                />
-                <button
-                  onClick={sendMessage}
-                  disabled={!input.trim() || isLoading}
-                  style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '8px',
-                    background: input.trim() && !isLoading ? '#1a2744' : '#e2ddd5',
-                    border: 'none',
-                    cursor: input.trim() && !isLoading ? 'pointer' : 'not-allowed',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'all 0.2s ease',
-                    flexShrink: 0,
-                  }}
-                >
-                  <Send size={15} color={input.trim() && !isLoading ? 'white' : '#a09a90'} />
-                </button>
-              </div>
-            </>
+              fontWeight: 900,
+              marginLeft: 'auto',
+            }}>!</span>
           )}
+        </button>
+      )}
+
+      {/* Chat window */}
+      {isOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '8px',
+            right: '16px',
+            width: '340px',
+            zIndex: 1000,
+            fontFamily: 'var(--font-system)',
+          }}
+        >
+          <div className="win-window" style={{ display: 'flex', flexDirection: 'column' }}>
+
+            {/* Titlebar */}
+            <div className="win-titlebar" style={{ flexShrink: 0 }}>
+              <span style={{ fontSize: '12px' }}>💬</span>
+              <span>AI Resume Assistant</span>
+              <div style={{ marginLeft: 'auto', display: 'flex', gap: '2px' }}>
+                <button
+                  onClick={() => setIsMinimized(!isMinimized)}
+                  style={{
+                    width: 16, height: 14, background: 'var(--win-gray)',
+                    borderTop: '1px solid #fff', borderLeft: '1px solid #fff',
+                    borderRight: '1px solid #404040', borderBottom: '1px solid #404040',
+                    fontSize: '9px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontFamily: 'var(--font-system)', color: 'black', padding: 0,
+                  }}
+                >_</button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  style={{
+                    width: 16, height: 14, background: 'var(--win-gray)',
+                    borderTop: '1px solid #fff', borderLeft: '1px solid #fff',
+                    borderRight: '1px solid #404040', borderBottom: '1px solid #404040',
+                    fontSize: '9px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontFamily: 'var(--font-system)', color: 'black', padding: 0,
+                  }}
+                >✕</button>
+              </div>
+            </div>
+
+            {/* Menu bar */}
+            {!isMinimized && (
+              <div style={{
+                background: 'var(--win-gray)',
+                borderBottom: '1px solid var(--win-border-dark)',
+                padding: '2px 4px',
+                display: 'flex',
+                gap: '2px',
+                flexShrink: 0,
+              }}>
+                {['File', 'View', 'Help'].map(m => (
+                  <button key={m} style={{
+                    background: 'none', border: 'none', padding: '1px 6px',
+                    fontFamily: 'var(--font-system)', fontSize: '11px', cursor: 'pointer',
+                    color: 'var(--win-text)',
+                  }}>{m}</button>
+                ))}
+              </div>
+            )}
+
+            {!isMinimized && (
+              <>
+                {/* Messages area */}
+                <div style={{
+                  height: '340px',
+                  overflowY: 'auto',
+                  padding: '8px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '6px',
+                  background: 'var(--win-white)',
+                  borderTop: '2px solid var(--win-border-dark)',
+                  borderLeft: '2px solid var(--win-border-dark)',
+                  borderRight: '2px solid var(--win-hilight)',
+                  borderBottom: '2px solid var(--win-hilight)',
+                  margin: '8px 8px 0',
+                }}>
+                  {messages.map((msg, i) => (
+                    <div
+                      key={i}
+                      className={msg.role === 'user' ? 'chat-bubble-user' : 'chat-bubble-ai'}
+                      style={{
+                        alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
+                        whiteSpace: 'pre-wrap',
+                      }}
+                    >
+                      {msg.role === 'assistant' && (
+                        <div style={{ fontWeight: 700, fontSize: '10px', marginBottom: '2px', opacity: 0.7 }}>
+                          AI Assistant:
+                        </div>
+                      )}
+                      {msg.content}
+                    </div>
+                  ))}
+
+                  {isLoading && (
+                    <div className="chat-bubble-ai" style={{ alignSelf: 'flex-start' }}>
+                      <div style={{ fontWeight: 700, fontSize: '10px', marginBottom: '2px', opacity: 0.7 }}>AI Assistant:</div>
+                      <span className="loading-dot" />
+                      <span className="loading-dot" />
+                      <span className="loading-dot" />
+                    </div>
+                  )}
+
+                  {/* Quick prompts */}
+                  {messages.length === 1 && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '4px' }}>
+                      <div style={{ fontSize: '10px', color: '#555', fontWeight: 700 }}>Quick questions:</div>
+                      {quickPrompts.map((prompt, i) => (
+                        <button
+                          key={i}
+                          onClick={() => { setInput(prompt); inputRef.current?.focus(); }}
+                          className="win-btn"
+                          style={{
+                            padding: '3px 8px',
+                            fontSize: '11px',
+                            textAlign: 'left',
+                            justifyContent: 'flex-start',
+                          }}
+                        >
+                          ▶ {prompt}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  <div ref={messagesEndRef} />
+                </div>
+
+                {/* Input area */}
+                <div style={{
+                  padding: '6px 8px 8px',
+                  background: 'var(--win-gray)',
+                  display: 'flex',
+                  gap: '4px',
+                  alignItems: 'flex-end',
+                }}>
+                  <textarea
+                    ref={inputRef}
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Type a question..."
+                    rows={2}
+                    className="win-input"
+                    style={{
+                      flex: 1,
+                      resize: 'none',
+                      maxHeight: '60px',
+                      overflow: 'auto',
+                      lineHeight: '1.4',
+                      fontSize: '11px',
+                    }}
+                  />
+                  <button
+                    onClick={sendMessage}
+                    disabled={!input.trim() || isLoading}
+                    className="win-btn"
+                    style={{
+                      padding: '4px 8px',
+                      opacity: input.trim() && !isLoading ? 1 : 0.5,
+                      cursor: input.trim() && !isLoading ? 'pointer' : 'not-allowed',
+                      height: '42px',
+                      alignSelf: 'stretch',
+                    }}
+                  >
+                    <Send size={12} />
+                    <span style={{ fontSize: '10px' }}>Send</span>
+                  </button>
+                </div>
+              </>
+            )}
+
+            {/* Statusbar */}
+            <div className="win-statusbar" style={{ flexShrink: 0 }}>
+              <div style={{
+                borderTop: '1px solid var(--win-border-dark)', borderLeft: '1px solid var(--win-border-dark)',
+                borderRight: '1px solid var(--win-hilight)', borderBottom: '1px solid var(--win-hilight)',
+                padding: '1px 6px', flex: 1, fontSize: '10px',
+              }}>
+                {isLoading ? 'AI is typing...' : 'Ready'}
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>
